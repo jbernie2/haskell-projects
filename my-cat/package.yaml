@@ -1,0 +1,65 @@
+name:                my-cat
+version:             0.1.0.0
+github:              https://github.com/jbernie2/my-cat#readme
+license:             BSD3
+author:              John Bernier
+maintainer:          john.b.bernier@gmail.com
+copyright:           "2020 John Bernier"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Command Line Utility
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/githubuser/data-structures-and-algorithms#readme>
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Werror
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wredundant-constraints
+- -fhide-source-paths
+- -fno-warn-warnings-deprecations
+- -freverse-errors
+- -fwarn-unused-binds
+- -fwarn-unused-imports
+- -fwarn-unused-matches
+
+dependencies:
+- base >= 4.7 && < 5
+- optparse-applicative
+
+library:
+  source-dirs: src
+
+executables:
+  my-cat-exe:
+    main:                Main.hs
+    source-dirs:         src
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - my-cat
+
+tests:
+  my-cat-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - my-cat
+    - hspec

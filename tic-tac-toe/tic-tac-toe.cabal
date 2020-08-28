@@ -1,0 +1,79 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: a01b92f3c4284d171ba195a26ef8293bdcb6abaa82bdd981d34de821b360ed69
+
+name:           tic-tac-toe
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/data-structures-and-algorithms#readme>
+homepage:       https://github.com/https://github.com/jbernie2/tic-tac-toe#readme#readme
+bug-reports:    https://github.com/https://github.com/jbernie2/tic-tac-toe#readme/issues
+author:         John Bernier
+maintainer:     john.b.bernier@gmail.com
+copyright:      2020 John Bernier
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/https://github.com/jbernie2/tic-tac-toe#readme
+
+library
+  exposed-modules:
+      AI
+      GameState
+      Main
+      PlayerAgent
+  other-modules:
+      Paths_tic_tac_toe
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches
+  build-depends:
+      base >=4.7 && <5
+    , heap
+    , safe
+  default-language: Haskell2010
+
+executable tic-tac-toe-exe
+  main-is: Main.hs
+  other-modules:
+      AI
+      GameState
+      PlayerAgent
+      Paths_tic_tac_toe
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , heap
+    , safe
+    , tic-tac-toe
+  default-language: Haskell2010
+
+test-suite tic-tac-toe-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      AISpec
+      GameStateSpec
+      PlayerAgentSpec
+      Paths_tic_tac_toe
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , heap
+    , hspec
+    , safe
+    , tic-tac-toe
+  default-language: Haskell2010

@@ -1,0 +1,91 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 379da3c507dd32d04544b2f8bff2dd45af457f43f5b4a5b28c960122d57e8744
+
+name:           data-structures-and-algorithms
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/data-structures-and-algorithms#readme>
+homepage:       https://github.com/githubuser/data-structures-and-algorithms#readme
+bug-reports:    https://github.com/githubuser/data-structures-and-algorithms/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2020 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/data-structures-and-algorithms
+
+library
+  exposed-modules:
+      DeleteDistance
+      Graph
+      Lib
+      LinkedList
+      LongestDuplicate
+      LongestStreak
+      MismatchedParens
+  other-modules:
+      Paths_data_structures_and_algorithms
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , safe
+    , split
+    , unordered-containers
+  default-language: Haskell2010
+
+executable data-structures-and-algorithms-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_data_structures_and_algorithms
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , data-structures-and-algorithms
+    , safe
+    , split
+    , unordered-containers
+  default-language: Haskell2010
+
+test-suite data-structures-and-algorithms-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      DeleteDistanceSpec
+      FindDuplicateSpec
+      GraphSpec
+      LinkedListSpec
+      LongestDuplicateSpec
+      LongestStreakSpec
+      MismatchedParensSpec
+      SumToZeroSpec
+      TupleSortSpec
+      Paths_data_structures_and_algorithms
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , data-structures-and-algorithms
+    , hspec
+    , safe
+    , split
+    , unordered-containers
+  default-language: Haskell2010
