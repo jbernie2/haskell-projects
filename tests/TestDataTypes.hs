@@ -73,6 +73,9 @@ instance Monoid a => Applicative (Two a) where
   pure b = (Two mempty b)
   Two a f <*> Two a' b = Two (a <> a') (f b) 
 
+instance Foldable (Two a) where
+  foldMap f (Two _ b) = f b
+
 instance (Arbitrary a, Arbitrary b) => Arbitrary (Two a b) where
   arbitrary = do
     x <- arbitrary 
@@ -95,6 +98,9 @@ instance (Monoid a, Monoid b) => Applicative (Three a b) where
   pure c = Three mempty mempty c
   Three a b f <*> Three a' b' c = Three (a <> a') (b <> b') (f c)
 
+instance Foldable (Three a b) where
+  foldMap f (Three _ _ c) = f c
+
 instance (Arbitrary a, Arbitrary b, Arbitrary c) => Arbitrary (Three a b c) where
   arbitrary = do
     x <- arbitrary 
@@ -106,10 +112,16 @@ instance (Eq a, Eq b, Eq c) => EqProp (Three a b c) where
   (=-=) = eq
 
 
-
 data Three' a b = Three' a b b deriving (Eq, Show)
 instance Functor (Three' a) where
   fmap f (Three' a b c) = Three' a (f b) (f c)
+
+instance Foldable (Three' a) where
+  foldMap f (Three' _ b b') = f b <> f b'
+
+data Four' a b = Four' a b b b deriving (Eq, Show)
+instance Foldable (Four' a) where
+  foldMap f (Four' _ b b' b'') = f b <> f b' <> f b''
 
 instance (Arbitrary a, Arbitrary b) => Arbitrary (Three' a b) where
   arbitrary = do

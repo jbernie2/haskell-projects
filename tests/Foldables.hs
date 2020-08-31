@@ -83,6 +83,10 @@ spec = do
     it "works on Maybe" $ do
       foldMap' Product (Just (3 :: Int)) `shouldBe` (Product (3 :: Int))
 
+  describe "filterF" $ do
+    it "filters values from a Foldable instance" $ do
+      filterF ((<) 2) [1,2,3,4] `shouldBe` (First (Just (3 :: Int)))
+
 
 sum' :: (Foldable t, Num a) => t a -> a
 sum' t = getSum $ foldMap Sum t
@@ -127,4 +131,16 @@ fold' t = foldMap id t
 foldMap' :: (Foldable t, Monoid m) => (a -> m) -> t a -> m
 foldMap' f t = foldr (\x acc -> f x <> acc) mempty t 
 
+data Constant a b = Constant b
 
+instance Foldable (Constant a) where
+  foldMap f (Constant b) = f b
+
+filterF
+  :: ( Applicative f
+     , Foldable t
+     , Monoid (f a))
+  => (a -> Bool)
+  -> t a
+  -> f a
+filterF fn t = foldMap (\x -> if fn x then pure x else mempty) t
