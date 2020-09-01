@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 379da3c507dd32d04544b2f8bff2dd45af457f43f5b4a5b28c960122d57e8744
+-- hash: 9a73b2cea2b9a0f0abd4fd82c8f2d731639336a25a9c36f16b0eac078f177837
 
 name:           data-structures-and-algorithms
 version:        0.1.0.0
@@ -34,6 +34,7 @@ library
       LongestDuplicate
       LongestStreak
       MismatchedParens
+      PolynomialAlgebra
   other-modules:
       Paths_data_structures_and_algorithms
   hs-source-dirs:
@@ -74,6 +75,7 @@ test-suite data-structures-and-algorithms-test
       LongestDuplicateSpec
       LongestStreakSpec
       MismatchedParensSpec
+      PolynomialAlgebraSpec
       SumToZeroSpec
       TupleSortSpec
       Paths_data_structures_and_algorithms
