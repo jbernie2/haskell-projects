@@ -31,8 +31,17 @@ instance Monoid a => Monoid (Identity a) where
 instance Functor Identity where
   fmap f (Identity a) = Identity (f a)
 
+instance Foldable Identity where
+  foldMap f (Identity a) = f a
+
+instance Traversable Identity where
+  traverse f (Identity a) = Identity <$> f a
+
 instance Arbitrary a => Arbitrary (Identity a) where
   arbitrary = Identity <$> arbitrary
+
+instance Eq a => EqProp (Identity a) where
+  (=-=) = eq
 
 type IdentityAssoc a = 
   Identity a -> Identity a -> Identity a -> Bool
@@ -76,6 +85,9 @@ instance Monoid a => Applicative (Two a) where
 instance Foldable (Two a) where
   foldMap f (Two _ b) = f b
 
+instance Traversable (Two a) where
+  traverse f (Two a b) = Two a <$> f b
+
 instance (Arbitrary a, Arbitrary b) => Arbitrary (Two a b) where
   arbitrary = do
     x <- arbitrary 
@@ -100,6 +112,9 @@ instance (Monoid a, Monoid b) => Applicative (Three a b) where
 
 instance Foldable (Three a b) where
   foldMap f (Three _ _ c) = f c
+
+instance Traversable (Three a b) where
+  traverse f (Three a b c) = Three a b <$> f c
 
 instance (Arbitrary a, Arbitrary b, Arbitrary c) => Arbitrary (Three a b c) where
   arbitrary = do
@@ -264,6 +279,45 @@ newtype Constant a b =
 
 instance Functor (Constant m ) where
   fmap _ (Constant v) = Constant v
+
+instance Foldable (Constant a) where
+  foldMap _ _ = mempty
+
+instance Traversable (Constant a) where
+  traverse _ (Constant a) = pure $ Constant a
+
+instance (Arbitrary a) => Arbitrary (Constant a b) where
+  arbitrary = Constant <$> arbitrary
+
+instance Eq a => EqProp (Constant a b) where
+  (=-=) = eq
+
+
+data Optional a
+  = Nada
+  | Yep a
+  deriving (Show, Eq)
+
+instance Functor Optional where
+  fmap _ Nada    = Nada
+  fmap f (Yep a) = Yep $ f a
+
+instance Foldable Optional where
+  foldMap _ Nada = mempty
+  foldMap f (Yep a) = f a
+
+instance Traversable Optional where
+  traverse _ Nada    = pure Nada
+  traverse f (Yep a) = Yep <$> f a
+
+instance Arbitrary a => Arbitrary (Optional a) where
+  arbitrary = frequency
+                [ (1, pure Nada)
+                , (1, Yep <$> arbitrary)
+                ]
+
+instance Eq a => EqProp (Optional a) where
+  (=-=) = eq
 
 data Wrap f a =
   Wrap (f a)
@@ -430,6 +484,14 @@ instance Monad List where
   Nil >>= _ = Nil
   Cons a list >>= f = f a <> (list >>= f)
 
+instance Foldable List where
+  foldMap _ Nil           = mempty
+  foldMap f (Cons a list) = f a <> foldMap f list
+
+instance Traversable List where
+  traverse _ Nil           = pure Nil
+  traverse f (Cons a list) = Cons <$> f a <*> traverse f list
+
 instance Arbitrary a => Arbitrary (List a) where
   arbitrary = frequency
                 [ (1, Cons <$> arbitrary <*> arbitrary)
@@ -437,4 +499,102 @@ instance Arbitrary a => Arbitrary (List a) where
                 ]
 
 instance Eq a => EqProp (List a) where
+  (=-=) = eq
+
+
+data Big a b = Big a b b deriving (Eq, Show)
+
+instance Functor (Big a) where
+  fmap f (Big a b b') = Big a (f b) (f b')
+
+instance Foldable (Big a) where
+  foldMap f (Big _ b b') = f b <> f b'
+
+instance Traversable (Big a) where
+  traverse f (Big a b b') = Big a <$> f b <*> f b'
+  
+instance (Arbitrary a, Arbitrary b) => Arbitrary (Big a b) where
+  arbitrary = Big <$> arbitrary <*> arbitrary <*> arbitrary
+
+instance (Eq a, Eq b) => EqProp (Big a b) where
+  (=-=) = eq
+
+
+data Bigger a b = Bigger a b b b deriving (Eq, Show)
+
+instance Functor (Bigger a) where
+  fmap f (Bigger a b b' b'') = Bigger a (f b) (f b') (f b'')
+
+instance Foldable (Bigger a) where
+  foldMap f (Bigger _ b b' b'') = f b <> f b' <> f b''
+
+instance Traversable (Bigger a) where
+  traverse f (Bigger a b b' b'') = Bigger a <$> f b <*> f b' <*> f b''
+  
+instance (Arbitrary a, Arbitrary b) => Arbitrary (Bigger a b) where
+  arbitrary = Bigger <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+
+instance (Eq a, Eq b) => EqProp (Bigger a b) where
+  (=-=) = eq
+
+
+data S n a = S (n a) a deriving (Eq, Show)
+
+instance Functor n => Functor (S n) where
+  fmap f (S na a) = S (fmap f na) (f a)
+
+instance Foldable n => Foldable (S n) where
+  foldMap f (S na a) = foldMap f na <> f a
+
+instance Traversable n => Traversable (S n) where
+  traverse f (S na a) = S <$> (traverse f na) <*> f a
+
+instance (Functor n, Arbitrary (n a), Arbitrary a) => Arbitrary (S n a) where
+  arbitrary = S <$> arbitrary <*> arbitrary
+
+instance
+  (Applicative n
+  , Testable (n Property)
+  , Eq a
+  , Eq (n a) , EqProp a)
+  => EqProp (S n a)
+  where 
+    (=-=) = eq
+
+
+data Tree a
+  = Empty
+  | Leaf a
+  | Node (Tree a) a (Tree a)
+  deriving (Eq, Show)
+
+instance Functor Tree where
+  fmap _ Empty = Empty
+  fmap f (Leaf a) = Leaf $ f a
+  fmap f (Node leftTree a rightTree) =
+    Node (fmap f leftTree) (f a) (fmap f rightTree)
+
+instance Foldable Tree where
+  foldMap _ Empty = mempty
+  foldMap f (Leaf a) = f a
+  foldMap f (Node leftTree a rightTree) =
+    (foldMap f leftTree) <> f a <> (foldMap f rightTree)
+
+  foldr _ acc Empty = acc
+  foldr f acc (Leaf a) = f a acc
+  foldr f acc (Node lt a rt) = foldr f (f a (foldr f acc rt) ) lt
+
+instance Traversable Tree where
+  traverse _ Empty = pure Empty
+  traverse f (Leaf a) = Leaf <$> f a
+  traverse f (Node lt a rt) = Node <$> traverse f lt <*> f a <*> traverse f rt
+
+instance Arbitrary a => Arbitrary (Tree a) where
+  arbitrary = frequency
+                [ (1, pure Empty)
+                , (1, Leaf <$> arbitrary)
+                , (1, Node <$> arbitrary <*> arbitrary <*> arbitrary)
+                ]
+
+instance Eq a => EqProp (Tree a) where
   (=-=) = eq

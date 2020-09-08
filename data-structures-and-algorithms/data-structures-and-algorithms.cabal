@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9a73b2cea2b9a0f0abd4fd82c8f2d731639336a25a9c36f16b0eac078f177837
+-- hash: 703d74e3aaa3429a2e6c355864d7abf93ee0d43eab39ac21cd7c938c26cb5812
 
 name:           data-structures-and-algorithms
 version:        0.1.0.0
@@ -68,6 +68,7 @@ test-suite data-structures-and-algorithms-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      BoxPrintSpec
       DeleteDistanceSpec
       FindDuplicateSpec
       GraphSpec
