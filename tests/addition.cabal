@@ -16,6 +16,7 @@ library
                   , QuickCheck
                   , checkers
                   , transformers
+                  , random
   hs-source-dirs:   .
   default-language: Haskell2010
 
