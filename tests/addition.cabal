@@ -17,6 +17,13 @@ library
                   , checkers
                   , transformers
                   , random
+                  , trifecta
+                  , parsers
+                  , raw-strings-qq
+                  , text
+                  , containers
+                  , bytestring
+                  , ghc
   hs-source-dirs:   .
   default-language: Haskell2010
 
