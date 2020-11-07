@@ -48,4 +48,3 @@ instance (Traversable f, Traversable g) => Traversable (Compose f g) where
       --(\ga -> ga >>= 
         --(\a -> aCfgb a ))
     
-  
