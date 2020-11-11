@@ -1,5 +1,7 @@
 module MonadTransformers.EitherT where
 
+import Control.Monad.Trans.Class
+
 newtype EitherT e m a =
   EitherT { runEitherT :: m (Either e a) }
 
@@ -20,6 +22,9 @@ instance Monad m => Monad (EitherT e m) where
         Right a ->
           runEitherT $ f a
     )
+
+instance MonadTrans (EitherT e) where
+  lift = EitherT . fmap Right
 
 
 swapEither :: Either e a -> Either a e
