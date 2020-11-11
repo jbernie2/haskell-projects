@@ -1,0 +1,80 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 00350b1fe7abe0a812d13d230b443c94b939ea2593f7023f41d8bdc48aef7615
+
+name:           MonadTransformersLifting
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/data-structures-and-algorithms#readme>
+homepage:       https://github.com/https://github.com/jbernie2/MonadTransformersLifting#readme#readme
+bug-reports:    https://github.com/https://github.com/jbernie2/MonadTransformersLifting#readme/issues
+author:         John Bernier
+maintainer:     john.b.bernier@gmail.com
+copyright:      2020 John Bernier
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/https://github.com/jbernie2/MonadTransformersLifting#readme
+
+library
+  exposed-modules:
+      Main
+  other-modules:
+      Paths_MonadTransformersLifting
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , scotty
+    , semigroups
+    , text
+    , transformers
+  default-language: Haskell2010
+
+executable MonadTransformersLifting-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_MonadTransformersLifting
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MonadTransformersLifting
+    , base >=4.7 && <5
+    , bytestring
+    , scotty
+    , semigroups
+    , text
+    , transformers
+  default-language: Haskell2010
+
+test-suite MonadTransformersLifting-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      MainSpec
+      Paths_MonadTransformersLifting
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MonadTransformersLifting
+    , base >=4.7 && <5
+    , bytestring
+    , hspec
+    , scotty
+    , semigroups
+    , text
+    , transformers
+  default-language: Haskell2010
