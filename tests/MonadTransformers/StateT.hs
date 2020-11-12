@@ -53,3 +53,8 @@ instance MonadTrans (StateT s) where
 instance (MonadIO m) => MonadIO (StateT s m) where
   liftIO :: IO a -> StateT s m a
   liftIO = lift . liftIO
+
+sPrintIncAccum :: (Num a, Show a) => StateT a IO String
+sPrintIncAccum = StateT $ \s -> do
+  putStrLn $ "Hi: " <> show s
+  return (show s, s + 1)
