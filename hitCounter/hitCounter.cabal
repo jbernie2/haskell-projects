@@ -1,0 +1,86 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 6868006abf563c02f318f967b037287026d3d63cda9f667bb215452dff3fe866
+
+name:           hitCounter
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/data-structures-and-algorithms#readme>
+homepage:       https://github.com/https://github.com/jbernie2/hitCounter#readme#readme
+bug-reports:    https://github.com/https://github.com/jbernie2/hitCounter#readme/issues
+author:         John Bernier
+maintainer:     john.b.bernier@gmail.com
+copyright:      2020 John Bernier
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/https://github.com/jbernie2/hitCounter#readme
+
+library
+  exposed-modules:
+      Main
+  other-modules:
+      Paths_hitCounter
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , containers
+    , scotty
+    , semigroups
+    , text
+    , transformers
+    , wai
+  default-language: Haskell2010
+
+executable hitCounter-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_hitCounter
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , containers
+    , hitCounter
+    , scotty
+    , semigroups
+    , text
+    , transformers
+    , wai
+  default-language: Haskell2010
+
+test-suite hitCounter-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      MainSpec
+      Paths_hitCounter
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Werror -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -fhide-source-paths -fno-warn-warnings-deprecations -freverse-errors -fwarn-unused-binds -fwarn-unused-imports -fwarn-unused-matches -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , containers
+    , hitCounter
+    , hspec
+    , scotty
+    , semigroups
+    , text
+    , transformers
+    , wai
+  default-language: Haskell2010
